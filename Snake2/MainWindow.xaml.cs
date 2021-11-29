@@ -20,9 +20,23 @@ namespace Snake2
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+            Ellipse ellipse = new()
+            {
+                Fill = Brushes.Green,
+                Width = 100,
+                Height = 100
+            };
+            canvas.Children.Add(ellipse);
+            Canvas.SetTop(ellipse, canvas.ActualHeight / 2);
+            Canvas.SetLeft(ellipse, canvas.ActualWidth / 2);
         }
     }
 }
