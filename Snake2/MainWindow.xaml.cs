@@ -38,7 +38,7 @@ namespace Snake2
             int CasellaY = (int)canvas.ActualHeight / SnakeGame.Y_SIZE;
             Ellipse ellipse = new()
             {
-                Fill = Brushes.Green,
+                Fill = Brushes.Black,
                 Width = CasellaX,
                 Height = CasellaY
             };
