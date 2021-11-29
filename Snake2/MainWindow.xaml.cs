@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Snake2
 {
@@ -20,23 +21,35 @@ namespace Snake2
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        SnakeGame game = new();
+        DispatcherTimer timer = new();
+        
         public MainWindow()
         {
             InitializeComponent();
+            timer.Interval = new(0, 0, 1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            int CasellaX = (int)canvas.ActualWidth / SnakeGame.X_SIZE;
+            int CasellaY = (int)canvas.ActualHeight / SnakeGame.Y_SIZE;
+            Ellipse ellipse = new()
+            {
+                Fill = Brushes.Green,
+                Width = CasellaX,
+                Height = CasellaY
+            };
+            canvas.Children.Add(ellipse);
+            Canvas.SetTop(ellipse, CasellaY*game.CapSerp.Y);
+            Canvas.SetLeft(ellipse, CasellaX * game.CapSerp.X);
         }
 
         private void canvas_KeyDown(object sender, KeyEventArgs e)
         {
-            Ellipse ellipse = new()
-            {
-                Fill = Brushes.Green,
-                Width = 100,
-                Height = 100
-            };
-            canvas.Children.Add(ellipse);
-            Canvas.SetTop(ellipse, canvas.ActualHeight / 2);
-            Canvas.SetLeft(ellipse, canvas.ActualWidth / 2);
+            game.Moure();
         }
     }
 }
